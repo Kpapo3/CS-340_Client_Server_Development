@@ -10,7 +10,7 @@ This submission demonstrates a database-focused enhancement using MongoDB (Atlas
 ## Supporting Files
 - `import_aac.py` — script used to import the AAC dataset into MongoDB once MONGO_URI set.
 - `aac_shelter_outcomes.csv` — dataset used for import/testing
-- `Grazioso_Salavare_Logo.png` — dashboard image asset
+- `Grazioso_Salvare_Logo.png` — dashboard image asset
 
 ## MongoDB Atlas Connection (Environment Variable)
 This project expects the MongoDB Atlas connection string to be provided via an environment variable named:
