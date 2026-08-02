@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+
+# Secrets / environment files (DO NOT COMMIT)
+atlas-credentials.env.txt
+.env
+.env.*
+*.env

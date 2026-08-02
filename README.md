@@ -1,15 +1,25 @@
-# PROJECT TWO - README
+# CS 499 Milestone Four – Database Enhancement Artifact (MongoDB + Dash)
 
-How do you write programs that are maintainable, readable, and adaptable?
+## Overview
+This submission demonstrates a database-focused enhancement using MongoDB (Atlas) and a Dash dashboard built on Austin Animal Center (AAC) outcomes data.
 
-To write maintainable, readable, and adaptable programs, I focus on clear code structure, consistent naming conventions, and thorough documentation. In the CRUD Python module from Project One, I used descriptive method names and comments to explain the purpose of each function. This approach made it easier to connect the dashboard widgets to the database in Project Two. The advantage of this method is that it simplifies future updates and debugging. This CRUD module can be reused in other projects that require database interactions, saving development time.
+## Enhanced Artifact Files
+- `ProjectTwoDashboard.ipynb` — Jupyter Notebook that runs the Dash dashboard (port 8050)
+- `animal_shelter.py` — MongoDB CRUD module used by the dashboard
 
+## Supporting Files
+- `import_aac.py` — script used to import the AAC dataset into MongoDB once MONGO_URI set.
+- `aac_shelter_outcomes.csv` — dataset used for import/testing
+- `Grazioso_Salavare_Logo.png` — dashboard image asset
 
-How do you approach a problem as a computer scientist?
+## MongoDB Atlas Connection (Environment Variable)
+This project expects the MongoDB Atlas connection string to be provided via an environment variable named:
 
-I approach problems by first understanding the requirements and breaking them down into smaller tasks. For the database and dashboard requirements from Grazioso Salvare, I started by identifying the key functionalities needed, such as data retrieval and visualization. This project differed from previous assignments as it required integrating multiple components (database, backend, and frontend). In the future, I would use similar strategies, like modular design and iterative testing, to create databases that meet client needs.
+- `MONGO_URI`
 
+Credentials are **not** stored in this repository. Do not hardcode usernames/passwords in code or notebooks.
 
-What do computer scientists do, and why does it matter?
+### Atlas connection string format (example)
+```bash
+export MONGO_URI="mongodb+srv://<username>:<password>@<cluster-host>/<database>?retryWrites=true&w=majority"
 
-Computer scientists solve complex problems by designing and implementing efficient algorithms and systems. This work is crucial as it drives innovation and improves processes across various industries. In this project, my work helps Grazioso Salvare streamline their operations by providing a tool to efficiently manage and analyze animal shelter data. This enables them to make informed decisions, ultimately enhancing their rescue efforts.
