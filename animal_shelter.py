@@ -26,6 +26,29 @@ class AnimalShelter(object):
         self.client = MongoClient(uri)
         self.database = self.client[DB]
         self.collection = self.database[COL]
+
+        # Ensure indexes used by common dashboard queries
+        self._ensure_indexes()
+
+    # Create indexes that match common dashboard query patterns.
+    def _ensure_indexes(self):
+        try:
+            # Single-field indexes (align with dashboard filter fields)
+            self.collection.create_index("animal_type")
+            self.collection.create_index("breed")
+            self.collection.create_index("sex_upon_outcome")
+            self.collection.create_index("age_upon_outcome_in_weeks")
+
+            # Optional compound index (helpful for the rescue filter queries)
+            self.collection.create_index([
+                ("animal_type", 1),
+                ("sex_upon_outcome", 1),
+                ("age_upon_outcome_in_weeks", 1),
+                ("breed", 1),
+            ])
+        except Exception as e:
+            # Do not crash app if index creation fails (permissions, etc.)
+            print(f"Index creation warning: {e}")
         
     # Complete this create method to implement the C in CRUD
     def create(self, data):
@@ -58,6 +81,24 @@ class AnimalShelter(object):
 
             return list(cursor)
             
+        except Exception as e:
+            print(f"An error has occurred: {e}")
+            return []
+
+    # Aggregation pipeline for breed counts
+    def aggregate_breed_counts(self, query, topN=10):
+        # Return breed counts computed in MongoDB via aggregation pipeline.
+        if query is None or not isinstance(query, dict):
+            raise ValueError("'query' must be a dictionary.")
+
+        try:
+            pipeline = [
+                {"$match": query},
+                {"$group": {"_id": "$breed", "count": {"$sum": 1}}},
+                {"$sort": {"count": -1}},
+                {"$limit": int(topN)},
+            ]
+            return list(self.collection.aggregate(pipeline))
         except Exception as e:
             print(f"An error has occurred: {e}")
             return []
